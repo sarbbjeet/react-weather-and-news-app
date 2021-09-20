@@ -1,29 +1,19 @@
-import React, { Component, useEffect } from "react";
-import StoreContext from "../contexts/storeContext";
+import React, { Component } from "react";
 import { loadApi } from "../store/weather";
 import * as images from "../utils/images";
 import "./common/form.css";
 import WeatherIcon from "./common/weatherIcon";
+import { connect } from "react-redux";
 
-export default class WeatherDashboard extends Component {
-  static contextType = StoreContext;
-  state = {
-    weather: {},
-  };
+class WeatherDashboard extends Component {
   componentDidMount() {
-    const store = this.context;
-    this.unsubscribe = store.subscribe(() => {
-      this.setState({ weather: store.getState().entities.weather.data });
-    });
-    store.dispatch(loadApi("middlesbrough"));
+    this.props.loadApi();
   }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+
   render() {
     return (
       <div className="formContainer mt-3">
-        <h3 style={{ alignSelf: "center" }}>{this.state.weather.name}</h3>
+        <h3 style={{ alignSelf: "center" }}>{this.props.weather.name}</h3>
         <div className="mt-3 weatherContainer">
           <WeatherIcon label="Sunny" image={images.Sunny} />
           <h2>24C</h2>
@@ -37,3 +27,10 @@ export default class WeatherDashboard extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  weather: state.entities.weather.data,
+});
+const mapDispatchToProps = (dispatch) => ({
+  loadApi: () => dispatch(loadApi("middlesbrough")),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherDashboard); //wraper

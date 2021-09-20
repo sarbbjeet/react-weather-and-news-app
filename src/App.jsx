@@ -4,13 +4,13 @@ import NavBar from "./components/common/NavBar";
 import SearchByCity from "./components/searchByCity";
 import News from "./components/News";
 import WeatherDashboard from "./components/weatherDashboard";
-import StoreContext from "./contexts/storeContext";
 import store from "./store/configureStore";
+import { Provider } from "react-redux";
 
 function App() {
   return (
     // pass store to every component
-    <StoreContext.Provider value={store}>
+    <Provider store={store}>
       <div className="bg-light" style={{ height: "100vh" }}>
         <NavBar />
         <Container>
@@ -24,7 +24,7 @@ function App() {
           </Switch>
         </Container>
       </div>
-    </StoreContext.Provider>
+    </Provider>
   );
 }
 
