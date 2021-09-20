@@ -7,3 +7,10 @@
     border-radius: 10px;
     background-color: white;
 }
+
+.weatherContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: "4px";
+}
