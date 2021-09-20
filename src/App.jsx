@@ -3,9 +3,9 @@ import { Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
 import SearchByCity from "./components/searchByCity";
 import News from "./components/News";
-import WeatherDashboard from "./components/weatherDashboard";
 import store from "./store/configureStore";
 import { Provider } from "react-redux";
+import weatherDashboard from "./components/weatherDashboard";
 
 function App() {
   return (
@@ -19,7 +19,10 @@ function App() {
             <Route path="/news" component={News}></Route>
             <Route
               path="/weather/dashboard"
-              component={WeatherDashboard}
+              component={weatherDashboard}
+              // render={(props) => {
+              //   return <WeatherDashboard {...props} />;
+              // }}
             ></Route>
           </Switch>
         </Container>

@@ -8,7 +8,6 @@ const slice = createSlice({
     },
     reducers: {
         apiLoaded: (weather, action) => {
-            console.log(action);
             weather.data = action.payload;
         },
     },

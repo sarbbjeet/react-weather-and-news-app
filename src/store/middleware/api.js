@@ -18,7 +18,6 @@ const api = (store) => (next) => async(action) => {
             if (onSuccess) dispatch({ type: onSuccess, payload: response });
         } catch (ex) {
             dispatch(actions.apiCallFailed(ex.message));
-            console.log(ex.message);
             if (onFailed) dispatch({ type: onFailed, payload: ex.message });
         }
     }

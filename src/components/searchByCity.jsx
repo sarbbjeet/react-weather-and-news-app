@@ -14,8 +14,10 @@ export default class SearchByCity extends Form {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(this.state.data);
+    this.props.history.push({
+      pathname: "weather/dashboard",
+      state: { city: this.state.data.city }, //pass city to history props
+    });
   };
   render() {
     return (
