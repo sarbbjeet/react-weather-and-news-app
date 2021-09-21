@@ -9,7 +9,7 @@ const api = (store) => (next) => async(action) => {
         if (onStart) dispatch({ type: onStart }); // loading spinner on
         try {
             const { data: response } = await axios.request({
-                baseURL: "http://localhost:4000",
+                baseURL: "http://192.168.0.92:4000",
                 url,
                 method,
                 data,

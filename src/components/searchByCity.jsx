@@ -45,8 +45,17 @@ export default class SearchByCity extends Form {
             />
 
             <div
-              style={{ width: "100%" }}
-              className="autocomplete-dropdown-container"
+              style={{
+                width: "100%",
+                border:
+                  Object.keys(suggestions).length !== 0
+                    ? "4px solid #ffffff"
+                    : "",
+
+                borderRadius: "8px",
+                boxShadow: "10px 10px 20px grey",
+              }}
+              className=" mt-2 autocomplete-dropdown-container"
             >
               {loading && <div>Loading...</div>}
               {suggestions.map((suggestion) => {
@@ -60,12 +69,19 @@ export default class SearchByCity extends Form {
                       color: "white",
                       cursor: "pointer",
                     }
-                  : { backgroundColor: "#ffffff", cursor: "pointer" };
+                  : {
+                      backgroundColor: "#ffffff",
+                      cursor: "pointer",
+                    };
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, {
                       className,
-                      style: { ...style, borderBottom: "2px solid white" },
+                      style: {
+                        ...style,
+                        borderBottom: "1px solid gray",
+                        padding: "2px",
+                      },
                     })}
                   >
                     <span>{suggestion.description}</span>
@@ -76,32 +92,6 @@ export default class SearchByCity extends Form {
           </div>
         )}
       </PlacesAutocomplete>
-      //<div style={{ width: "300px" }} className="mt-3">
-      //   <input style={{ width: "100%" }} type="text" />
-      //   <ul
-      //     className="mt-1"
-      //     style={{
-      //       zIndex: "20",
-      //       // minHeight: "0px",
-      //       maxHeight: "100px",
-      //       background: "red",
-      //       padding: "0px",
-      //       width: "100%",
-      //       listStyle: "none",
-      //       overflowY: "scroll",
-      //     }}
-      //   >
-      //     <li
-      //       style={{
-      //         borderBottom: "2px solid white",
-      //         textDecoration: "none",
-      //         padding: "5px",
-      //       }}
-      //     >
-      //       h1
-      //     </li>
-      //   </ul>
-      // </div>
     );
   }
 }

@@ -15,6 +15,7 @@ class WeatherDashboard extends Component {
 
   render() {
     const { city, icon, country, description, press, temp, wind } = this.props;
+
     return (
       <div className="formContainer mt-3">
         <h3 style={{ alignSelf: "center" }}>
@@ -22,12 +23,12 @@ class WeatherDashboard extends Component {
         </h3>
         <div className="mt-3 weatherContainer">
           <WeatherIcon
-            customStyle={{ flex: 2 }}
+            customStyle={{ flex: 3 }}
             label={description}
             image={icon}
           />
-          <h3 style={{ flex: 2 }}>{this.calcTemp(temp)}&deg;C</h3>
-          <div style={{ flex: 3, lineHeight: "10px" }}>
+          <h4 style={{ flex: 2 }}>{this.calcTemp(temp)}&deg;C</h4>
+          <div style={{ flex: 4, lineHeight: "10px" }}>
             <p>Wind Speed: {wind}</p>
             <p>Precip: 0 mm</p>
             <p>Pressure: {press} mb</p>

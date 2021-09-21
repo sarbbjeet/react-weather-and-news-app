@@ -1,11 +1,12 @@
 import { Container } from "react-bootstrap";
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
 import SearchByCity from "./components/searchByCity";
 import News from "./components/News";
 import store from "./store/configureStore";
 import { Provider } from "react-redux";
-import weatherDashboard from "./components/weatherDashboard";
+import WeatherDashboard from "./components/weatherDashboard";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 function App() {
   return (
@@ -17,13 +18,21 @@ function App() {
           <Switch>
             <Route exact path="/weather" component={SearchByCity}></Route>
             <Route path="/news" component={News}></Route>
-            <Route
+            <ProtectedRoute
               path="/weather/dashboard"
-              component={weatherDashboard}
-              // render={(props) => {
-              //   return <WeatherDashboard {...props} />;
-              // }}
-            ></Route>
+              component={WeatherDashboard}
+              redirect="/weather"
+            />
+            {/* <Route
+              path="/weather/dashboard"
+              render={(props) =>
+                props.history.location.state ? (
+                  <WeatherDashboard {...props} />
+                ) : (
+                  <Redirect to="/weather" />
+                )
+              }
+            ></Route> */}
           </Switch>
         </Container>
       </div>

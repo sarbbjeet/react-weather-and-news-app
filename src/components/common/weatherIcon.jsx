@@ -23,7 +23,7 @@ export default function WeatherIcon(props) {
       }}
     >
       <img width="80%" src={selectImage()} alt="icon" />
-      <h4 alignself="center">{label}</h4>
+      <h6 alignself="center">{label}</h6>
     </div>
   );
 }
