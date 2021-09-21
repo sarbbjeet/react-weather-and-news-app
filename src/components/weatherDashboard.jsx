@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 
 class WeatherDashboard extends Component {
   componentDidMount() {
-    const userInput = this.props.history.location.state.city || "";
-    this.props.loadApi(userInput); //city
+    const { Latlang } = this.props.history.location.state;
+    this.props.loadApi(Latlang); //longitude and latitude
   }
   calcTemp(temp) {
     return (temp - 273).toFixed(1); //define decimal points

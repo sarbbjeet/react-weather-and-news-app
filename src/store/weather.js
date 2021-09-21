@@ -14,11 +14,11 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-const loadApi = (cityName) =>
+const loadApi = (Latlng) =>
     apiCallRequest({
         url: "/weather-api",
         method: "post",
-        data: { cityName },
+        data: Latlng,
         onSuccess: slice.actions.apiLoaded.type,
     });
 
