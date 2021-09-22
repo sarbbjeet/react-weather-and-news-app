@@ -7,7 +7,7 @@ export default function ProtectedRoute(props) {
     <Route
       path={path}
       render={(props) =>
-        props.history.location.state.Latlang ? (
+        props.history.location.state ? (
           <Component {...props} />
         ) : (
           <Redirect to={redirect} />

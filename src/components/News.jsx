@@ -1,9 +1,22 @@
 import React from "react";
+import Child from "./Child";
 
 export default function News() {
   return (
     <div>
-      <h1> news</h1>
+      <Child handleEvent={() => console.log("event")}>
+        {(getInputProps) => {
+          return (
+            <div>
+              <input
+                {...getInputProps({
+                  placeHolder: "search..",
+                })}
+              ></input>
+            </div>
+          );
+        }}
+      </Child>
     </div>
   );
 }
