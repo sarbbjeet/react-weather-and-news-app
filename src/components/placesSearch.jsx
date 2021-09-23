@@ -1,3 +1,8 @@
+/*
+google places autocomplete suggestions using 
+react-places-autocomplete library
+*/
+
 import React from "react";
 import Form from "./common/form.jsx";
 import PlacesAutocomplete, {
@@ -5,7 +10,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-export default class SearchByCity extends Form {
+export default class PlacesSearch extends Form {
   componentDidMount() {}
   state = {
     city: "",

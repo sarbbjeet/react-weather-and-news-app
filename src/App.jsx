@@ -1,8 +1,9 @@
 import { Container } from "react-bootstrap";
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
-import SearchByCity from "./components/searchByCity";
-import News from "./components/News";
+import CustomPlacesSearch from "./components/customPlacesSearch";
+import News from "./components/news";
+
 import store from "./store/configureStore";
 import { Provider } from "react-redux";
 import WeatherDashboard from "./components/weatherDashboard";
@@ -16,7 +17,7 @@ function App() {
         <NavBar />
         <Container>
           <Switch>
-            <Route exact path="/weather" component={SearchByCity}></Route>
+            <Route exact path="/weather" component={CustomPlacesSearch}></Route>
             <Route path="/news" component={News}></Route>
             <ProtectedRoute
               path="/weather/dashboard"

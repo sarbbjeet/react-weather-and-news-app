@@ -3,16 +3,20 @@ import * as actions from "../actionCreater";
 
 const api = (store) => (next) => async(action) => {
     const { dispatch } = store;
-    const { url, method, onSuccess, onFailed, data, onStart } = action.payload;
+    const { finalUrl, method, onSuccess, onFailed, data, onStart } =
+    action.payload;
     next(action);
     if (action.type === actions.apiCallRequest.type) {
         if (onStart) dispatch({ type: onStart }); // loading spinner on
         try {
             const { data: response } = await axios.request({
-                baseURL: "http://192.168.0.92:4000",
-                url,
+                baseURL: finalUrl,
                 method,
                 data,
+                headers: {
+                    //No need to use Access-Control-Allow-Origin : *
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                },
             });
             dispatch(actions.apiCallSuccess(response));
             if (onSuccess) dispatch({ type: onSuccess, payload: response });
