@@ -8,6 +8,15 @@ export default function HorizonalScrollContainer(props) {
   const cardActiveFalse = { boxShadow: "5px 5px 10px rgba(0, 89, 255, 0.8)" };
   const getIconUrl = (icon) =>
     `http://openweathermap.org/img/wn/${icon}@2x.png`;
+
+  //day name abbrivations
+  const dayAbr = (dayItem) => {
+    const { dt, id } = dayItem;
+    if (id === 0) return "Today";
+    else if (id === 1) return "Tomorrow";
+    else return moment.unix(dt).format("dddd").substring(0, 3);
+  };
+
   return (
     <div className="cards_container">
       {forcasting.map((dayItem) => (
@@ -17,9 +26,7 @@ export default function HorizonalScrollContainer(props) {
           className="card_mini"
           style={dayItem.active ? cardActiveTrue : cardActiveFalse}
         >
-          <h6 style={{ position: "relative" }}>
-            {moment.unix(dayItem.dt).format("dddd").substring(0, 3)}
-          </h6>
+          <h6 style={{ position: "relative" }}>{dayAbr(dayItem)}</h6>
           <img
             style={{
               position: "relative",
