@@ -5,8 +5,16 @@ export default class CustomGooglePlacesApi extends Component {
     suggestions: [],
     loading: false,
     value: "", //user search input
+    error: "",
   };
+  searchError = (msg) => this.setState({ error: msg }); //display network error or search error
+  async componentDidMount() {
+    await this.init(); //initialize google api
+    //this.fetchPredictions("midd");
+  }
 
+  //to get lat and lng from full address access
+  //from goole places autocomplete api
   geocodeByAddress = async (address) => {
     const geocoder = new window.google.maps.Geocoder();
     const OK = window.google.maps.GeocoderStatus.OK;
@@ -29,7 +37,7 @@ export default class CustomGooglePlacesApi extends Component {
     onChange: ({ target: input }) => {
       this.setState({ value: input.value });
       if (!input.value.length) return this.setState({ suggestions: [] }); //clear suggestions
-      this.fetchPredictions(input.value);
+      this.fetchPredictions(input.value); //hit google api server
     },
   });
 
@@ -54,14 +62,16 @@ export default class CustomGooglePlacesApi extends Component {
       onMouseOut: () => active(false),
       onClick: () => {
         this.setState({ value: suggestion.description });
-        this.handleSelect(suggestion.description); //handle click item
+        this.handleSelect(suggestion.description); //handle clicked item
       },
     };
   };
 
   autocompleteCallback = (predictions, status) => {
     if (status !== this.autocompleteOK) {
-      this.props.onError(status);
+      //this.props.onError(status);
+      this.searchError("network error");
+      this.setState({ suggestions: [] }); //null suggestions
       return;
     }
     this.setState({
@@ -76,12 +86,17 @@ export default class CustomGooglePlacesApi extends Component {
 
   init = () => {
     if (!window.google) {
-      throw new Error(
-        "[react-places-autocomplete]: Google Maps JavaScript API library must be loaded. See: https://github.com/kenny-hibino/react-places-autocomplete#load-google-library"
-      );
+      this.searchError("network error");
+      this.setState({ suggestions: [] }); //null suggestions
+      return;
+      // throw new Error(
+      //   "[react-places-autocomplete]: Google Maps JavaScript API library must be loaded. See: https://github.com/kenny-hibino/react-places-autocomplete#load-google-library"
+      // );
     }
 
     if (!window.google.maps.places) {
+      this.setState({ suggestions: [] }); //null suggestions
+      this.searchError("network error");
       throw new Error(
         "[react-places-autocomplete]: Google Maps Places library must be loaded. Please add `libraries=places` to the src URL. See: https://github.com/kenny-hibino/react-places-autocomplete#load-google-library"
       );
@@ -98,21 +113,22 @@ export default class CustomGooglePlacesApi extends Component {
     });
   };
 
-  async componentDidMount() {
-    await this.init(); //initialize google api
-    //this.fetchPredictions("midd");
-  }
-
   fetchPredictions = (value) => {
-    if (value.length) {
-      this.setState({ loading: true });
-      this.autocompleteService.getPlacePredictions(
-        {
-          ...this.props.searchOptions,
-          input: value,
-        },
-        this.autocompleteCallback //callback
-      );
+    try {
+      if (value.length) {
+        this.autocompleteService.getPlacePredictions(
+          {
+            // ...this.props.searchOptions,
+            input: value,
+          },
+          this.autocompleteCallback //callback
+        );
+      }
+      this.setState({ error: "" });
+    } catch (ex) {
+      this.setState({ error: "network error" });
+      this.setState({ suggestions: [] }); //null suggestions
+      // this.props.onError(ex);
     }
   };
 
@@ -121,11 +137,31 @@ export default class CustomGooglePlacesApi extends Component {
   //   }
 }
 
-CustomGooglePlacesApi.defaultProps = {
-  onError: (status) =>
-    console.error(
-      "[react-places-autocomplete]: error happened when fetching data from Google Maps API.\nPlease check the docs here (https://developers.google.com/maps/documentation/javascript/places#place_details_responses)\nStatus: ",
-      status
-    ),
-  searchOptions: {},
+// CustomGooglePlacesApi.defaultProps = {
+//   onError: (status) => {
+//     console.error(
+//       "[react-places-autocomplete]: error happened when fetching data from Google Maps API.\nPlease check the docs here (https://developers.google.com/maps/documentation/javascript/places#place_details_responses)\nStatus: ",
+//       status
+//     );
+//     console.log(".,.,,?//////////////////");
+//   },
+//   searchOptions: {},
+// };
+
+//reverse get address by geocode
+export const addressByLatlng = async ({ lat, lng }) => {
+  const geocoder = new window.google.maps.Geocoder();
+  const OK = window.google.maps.GeocoderStatus.OK;
+  var latLng = new window.google.maps.LatLng(lat, lng);
+  try {
+    let result = null;
+    await geocoder.geocode({ latLng }, (results, status) => {
+      status !== OK ? (result = null) : (result = results);
+      // console.log(results);
+      // console.log(status);
+    });
+    return result;
+  } catch (ex) {
+    return null;
+  }
 };

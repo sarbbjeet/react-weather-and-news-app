@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
 import CustomPlacesSearch from "./components/customPlacesSearch";
 import News from "./components/news";
+import "./App.css";
 
 import store from "./store/configureStore";
 import { Provider } from "react-redux";
@@ -13,9 +14,19 @@ function App() {
   return (
     // pass store to every component
     <Provider store={store}>
-      <div className="bg-light" style={{ height: "100vh" }}>
-        <NavBar />
-        <Container>
+      <div
+        style={{
+          height: "100vh",
+          // backgroundImage: "url('/images/pikist.jpg')",
+          // backgroundPosition: "center",
+          // backgroundRepeat: "no-repeat",
+          // backgroundSize: "cover",
+        }}
+      >
+        <NavBar bgColor="rgba(14, 126, 255, 0.6)" fontColor="#ffffff" />
+        <Container
+          style={{ height: "80%", display: "flex", justifyContent: "center" }}
+        >
           <Switch>
             <Route exact path="/weather" component={CustomPlacesSearch}></Route>
             <Route path="/news" component={News}></Route>

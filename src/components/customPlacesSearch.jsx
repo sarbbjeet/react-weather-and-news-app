@@ -17,13 +17,14 @@ export default class CustomPlacesSearch extends CustomGooglePlacesApi {
         () =>
           this.props.history.push({
             pathname: "/weather/dashboard",
-            state: { Latlang: latlng },
+            state: { Latlang: latlng, address },
           }),
         500
       );
 
       //console.log(latlng);
     } catch (ex) {
+      window.location = "/weather"; //reload page
       console.log("outpur", ex);
     }
   };
@@ -44,6 +45,7 @@ export default class CustomPlacesSearch extends CustomGooglePlacesApi {
             boxShadow: "10px 10px 20px grey",
           }}
         >
+          {this.state.error && <div>{this.state.error}</div>}
           {this.state.suggestions &&
             this.state.suggestions.map((suggestion) => {
               const style = suggestion.active
@@ -63,6 +65,7 @@ export default class CustomPlacesSearch extends CustomGooglePlacesApi {
                     borderBottom: "1px solid gray",
                   })}
                 >
+                  {/* {this.addressByLatlng({ lat: 1.34, lon: -3.24 })} */}
                   <span>{suggestion.description}</span>
                 </div>
               );

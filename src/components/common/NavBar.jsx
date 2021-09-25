@@ -2,18 +2,21 @@ import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar(props) {
+  const { bgColor, fontColor } = props;
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar className="bg-primary" style={{ backgroundColor: bgColor }}>
       <Container>
-        <Navbar.Brand href="weather">XYZ</Navbar.Brand>
+        <Navbar.Brand href="weather" style={{ color: fontColor }}>
+          XYZ
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/weather">
+            <Nav.Link as={Link} style={{ color: fontColor }} to="/weather">
               Weather
             </Nav.Link>
-            <Nav.Link as={Link} to="/news">
+            <Nav.Link style={{ color: fontColor }} as={Link} to="/news">
               News
             </Nav.Link>
           </Nav>
