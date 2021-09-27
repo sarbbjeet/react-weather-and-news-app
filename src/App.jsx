@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
@@ -9,8 +10,16 @@ import store from "./store/configureStore";
 import { Provider } from "react-redux";
 import WeatherDashboard from "./components/weatherDashboard";
 import ProtectedRoute from "./components/common/protectedRoute";
+import { addCardHeader } from "./store/newsStore";
 
 function App() {
+  useEffect(() => {
+    //card header items added to store==> news
+    store.dispatch(addCardHeader({ id: 1, name: "Bussiness", active: true }));
+    store.dispatch(addCardHeader({ id: 2, name: "Sport", active: false }));
+    store.dispatch(addCardHeader({ id: 3, name: "Movies", active: false }));
+    store.dispatch(addCardHeader({ id: 4, name: "Politics", active: false }));
+  }, []);
   return (
     // pass store to every component
     <Provider store={store}>

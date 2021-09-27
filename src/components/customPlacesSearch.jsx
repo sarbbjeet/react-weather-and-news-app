@@ -33,6 +33,7 @@ export default class CustomPlacesSearch extends CustomGooglePlacesApi {
     return (
       <div className="mt-3" style={{ maxWidth: "250px" }}>
         <input
+          className="form-control"
           {...this.inputProps({ placeholder: "enter city name" })}
           style={{ width: "100%" }}
         />
