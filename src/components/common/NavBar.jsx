@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function NavBar(props) {
   const { bgColor, fontColor } = props;
   return (
-    <Navbar className="bg-primary" style={{ backgroundColor: bgColor }}>
+    <Navbar style={{ backgroundColor: bgColor }}>
       <Container>
         <Navbar.Brand href="weather" style={{ color: fontColor }}>
           XYZ

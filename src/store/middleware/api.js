@@ -14,17 +14,16 @@ const api = (store) => (next) => async(action) => {
                 method,
                 data,
                 headers: {
-                    //No need to use Access-Control-Allow-Origin : *
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 },
             });
             dispatch(actions.apiCallSuccess(response));
             if (onSuccess) dispatch({ type: onSuccess, payload: response });
         } catch (ex) {
+            // alert(finalUrl);
             dispatch(actions.apiCallFailed(ex.message));
             if (onFailed) dispatch({ type: onFailed, payload: ex.message });
         }
     }
 };
-
 export default api;

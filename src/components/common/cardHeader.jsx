@@ -1,9 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { updateCardHeaderState } from "../../store/newsStore";
 
 export default function CardHeader(props) {
-  const dispatch = useDispatch();
   const navItemStyle = {
     margin: "12px 0 0 5px",
     padding: "5px 15px",
@@ -11,20 +8,10 @@ export default function CardHeader(props) {
     alignItems: "center",
     borderRadius: "5px 5px 0 0",
   };
-  const extraProps = (item) => ({
-    onClick: () => dispatch(updateCardHeaderState({ ...item, active: true })),
-  });
-  const { cardHeaderItems } = props;
+
+  const { cardHeaderItems, extraProps } = props;
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "100%",
-        height: "10%",
-        backgroundColor: "gray",
-        overflowX: "auto",
-      }}
-    >
+    <div className="cards_container" style={{ backgroundColor: "#e0e0e0" }}>
       {cardHeaderItems.map((item, idx) => (
         <div
           key={idx}
