@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallRequest } from "./actionCreater";
 const basicUrl = "https://api.openweathermap.org/data/2.5/weather?";
-const basicForcastUrl = "https://api.openweathermap.org/data/2.5/onecall?";
+const basicForcastUrl = process.env.REACT_APP_WEATHER_API_URL;
 const slice = createSlice({
     name: "weather",
     initialState: {
@@ -29,6 +29,7 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
+//current day api
 const loadApi = ({ lat, lng }) => {
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
     const finalUrl = `${basicUrl}lat=${lat}&lon=${lng}&appId=${apiKey}`;
@@ -41,6 +42,7 @@ const loadApi = ({ lat, lng }) => {
     });
 };
 
+//forcasting api such as weekly(7 days api)
 const loadWeatherForcastingApi = ({ lat, lng }) => {
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
     const finalUrl = `${basicForcastUrl}lat=${lat}&lon=${lng}&exclude=hourly,current&appId=${apiKey}`;

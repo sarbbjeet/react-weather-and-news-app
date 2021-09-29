@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallRequest } from "./actionCreater";
 
-const newsApiUrl = "http://192.168.0.92:4000/news";
+const newsApiUrl = process.env.REACT_APP_NEWS_API_URL;
 const slice = createSlice({
     name: "news",
     initialState: {
