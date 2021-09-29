@@ -46,7 +46,7 @@ const loadApi = ({ lat, lng }) => {
 const loadWeatherForcastingApi = ({ lat, lng }) => {
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
     const finalUrl = `${basicForcastUrl}lat=${lat}&lon=${lng}&exclude=hourly,current&appId=${apiKey}`;
-    console.log("final_utl=", finalUrl);
+
     return apiCallRequest({
         finalUrl,
         method: "get",
