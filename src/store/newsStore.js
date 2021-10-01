@@ -37,6 +37,7 @@ const fetchNews = ({ name: topic }) => {
     let topicToLowerCase = topic.toLowerCase();
     //handle request by node server
     const finalUrl = `${newsApiUrl}?category=${topicToLowerCase}`;
+    console.log("finalUrl", finalUrl);
     return apiCallRequest({
         finalUrl,
         method: "GET",
