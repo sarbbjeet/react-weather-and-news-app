@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallRequest } from "./actionCreater";
+import config from "../config/default.json";
 const basicUrl = "https://api.openweathermap.org/data/2.5/weather?";
-const basicForcastUrl = process.env.REACT_APP_WEATHER_API_URL;
+const basicForcastUrl = config.REACT_APP_WEATHER_API_URL;
+
 const slice = createSlice({
     name: "weather",
     initialState: {

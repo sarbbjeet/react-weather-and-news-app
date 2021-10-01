@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallRequest } from "./actionCreater";
+import configData from "../config/default.json";
 
-const newsApiUrl = process.env.REACT_APP_NEWS_API_URL;
+const newsApiUrl = configData.NEWS_API_URL;
 const slice = createSlice({
     name: "news",
     initialState: {
@@ -34,9 +35,7 @@ const slice = createSlice({
 //get request for news api based on category
 const fetchNews = ({ name: topic }) => {
     let topicToLowerCase = topic.toLowerCase();
-    // const apiKey = process.env.REACT_APP_NEWS_API_KEY;
-    //const finalUrl = `https://gnews.io/api/v4/top-headlines?lang=en&country=in&token=24dfe29c14eedb2b807ef5279935bad6&topic=${topicToLowerCase}`;
-    // const finalUrl = `https://newsapi.org/v2/everything?q=${topicToLowerCase}&apiKey=3ff8bd9e1574417cb317ad7ef3af02bd`;
+    //handle request by node server
     const finalUrl = `${newsApiUrl}?category=${topicToLowerCase}`;
     return apiCallRequest({
         finalUrl,

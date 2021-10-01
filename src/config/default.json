@@ -1,0 +1,4 @@
+{
+    "NEWS_API_URL": "https://api-server12.herokuapp.com/api/news",
+    "REACT_APP_WEATHER_API_URL": "https://api.openweathermap.org/data/2.5/onecall?"
+}
