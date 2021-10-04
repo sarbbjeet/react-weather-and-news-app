@@ -20,9 +20,9 @@ export default function DetailedNews(props) {
           }}
         >
           <Card.Body>
-            <Card.Title>{allNews[1].title}</Card.Title>
-            <Card.Img src={allNews[1].urlToImage} />
-            <Card.Text className="mt-3">{allNews[1].content}</Card.Text>
+            <Card.Title>{allNews[state.id].title}</Card.Title>
+            <Card.Img src={allNews[state.id].urlToImage} />
+            <Card.Text className="mt-3">{allNews[state.id].content}</Card.Text>
           </Card.Body>
         </Card>
       )}
