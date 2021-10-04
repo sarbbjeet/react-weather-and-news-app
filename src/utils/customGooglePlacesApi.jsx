@@ -35,8 +35,11 @@ export default class CustomGooglePlacesApi extends Component {
     text: "text",
     value: this.state.value,
     onChange: ({ target: input }) => {
+      this.setState({ loading: true }); //activate spinner
       this.setState({ value: input.value });
-      if (!input.value.length) return this.setState({ suggestions: [] }); //clear suggestions
+      if (!input.value.length)
+        return this.setState({ suggestions: [], loading: false }); //clear suggestions
+
       this.fetchPredictions(input.value); //hit google api server
     },
   });
@@ -71,7 +74,7 @@ export default class CustomGooglePlacesApi extends Component {
     if (status !== this.autocompleteOK) {
       //this.props.onError(status);
       this.searchError("network error");
-      this.setState({ suggestions: [] }); //null suggestions
+      this.setState({ suggestions: [], loading: false }); //null suggestions
       return;
     }
     this.setState({
@@ -81,6 +84,8 @@ export default class CustomGooglePlacesApi extends Component {
         index: i,
         placeId: p.place_id,
       })),
+
+      loading: false,
     });
   };
 
@@ -128,6 +133,8 @@ export default class CustomGooglePlacesApi extends Component {
     } catch (ex) {
       this.setState({ error: "network error" });
       this.setState({ suggestions: [] }); //null suggestions
+
+      this.setState({ loading: false });
       // this.props.onError(ex);
     }
   };

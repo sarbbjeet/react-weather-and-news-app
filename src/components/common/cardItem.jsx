@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function CardItem(props) {
-  const { title, img } = props;
+  const { title, img, restProps } = props;
   return (
     <div
       style={{
@@ -12,6 +12,7 @@ export default function CardItem(props) {
         height: "100px",
         backgroundColor: "#ffffff",
       }}
+      {...restProps}
     >
       <img
         style={{

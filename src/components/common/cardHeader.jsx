@@ -1,6 +1,6 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 export default function CardHeader(props) {
+  const [headerState, setHeaderState] = useState([]);
   const navItemStyle = {
     margin: "12px 0 0 5px",
     padding: "5px 15px",
@@ -9,19 +9,33 @@ export default function CardHeader(props) {
     borderRadius: "5px 5px 0 0",
   };
 
-  const { cardHeaderItems, extraProps } = props;
+  useEffect(() => {
+    setHeaderState((headerState) => [...headerState, (headerState[0] = true)]);
+  }, []);
+
+  //update state
+  const handleHeaderClick = (headers, idx) => {
+    headers.forEach((element, i) => {
+      idx === i ? (headerState[i] = true) : (headerState[i] = false);
+    });
+    setHeaderState([...headerState]);
+  };
+  const { cardHeaderItems, clickEvent } = props;
   return (
     <div className="cards_container" style={{ backgroundColor: "#e0e0e0" }}>
-      {cardHeaderItems.map((item, idx) => (
+      {cardHeaderItems.map((name, idx) => (
         <div
           key={idx}
           style={{
             ...navItemStyle,
-            backgroundColor: item.active && "#ffffff",
+            backgroundColor: headerState[idx] && "#ffffff",
           }}
-          {...extraProps(item)}
+          onClick={() => {
+            handleHeaderClick(cardHeaderItems, idx); //handle state for gui
+            clickEvent({ name, id: idx }); // do event operations when user clicked
+          }}
         >
-          {item.name}
+          {name}
         </div>
       ))}
     </div>

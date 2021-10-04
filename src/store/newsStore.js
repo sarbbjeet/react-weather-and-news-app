@@ -8,36 +8,23 @@ const slice = createSlice({
     initialState: {
         data: [],
         loading: false,
-        cardHeaderArr: [],
     },
     reducers: {
         //fetched news from api server
         newsFetched: (news, action) => {
             // alert("hello");
             news.data = action.payload;
+            news.loading = false;
         },
-        //add news card header items such as Bussiness, sport etc
-        //{id:1, name: "Bussiness", active: false}  // which button is pressed(active)
-        cardHeaderAdded: (news, action) => {
-            news.cardHeaderArr.push(action.payload);
-        },
-        cardHeaderStateUpdated: (news, action) => {
-            const itemA = action.payload;
-            news.cardHeaderArr = news.cardHeaderArr.map((itemx) =>
-                itemx.id === itemA.id ?
-                {...itemx, active: true } :
-                {...itemx, active: false }
-            );
+        loadingUpdated: (news, action) => {
+            news.loading = action.payload;
         },
     },
 });
 
 //get request for news api based on category
-const fetchNews = ({ name: topic }) => {
-    let topicToLowerCase = topic.toLowerCase();
-    //handle request by node server
-    const finalUrl = `${newsApiUrl}?category=${topicToLowerCase}`;
-    console.log("finalUrl", finalUrl);
+const fetchNews = (name) => {
+    const finalUrl = `${newsApiUrl}?category=${name}`;
     return apiCallRequest({
         finalUrl,
         method: "GET",
@@ -45,11 +32,7 @@ const fetchNews = ({ name: topic }) => {
         onSuccess: slice.actions.newsFetched.type,
     });
 };
-
-const addCardHeader = (item) => slice.actions.cardHeaderAdded(item);
-
-const updateCardHeaderState = (item) =>
-    slice.actions.cardHeaderStateUpdated(item);
+const updateLoading = (status) => slice.actions.loadingUpdated(status);
 
 export default slice.reducer;
-export { addCardHeader, updateCardHeaderState, fetchNews };
+export { fetchNews, updateLoading };

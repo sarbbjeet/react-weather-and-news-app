@@ -3,6 +3,7 @@
 
 import React from "react";
 import CustomGooglePlacesApi from "../utils/customGooglePlacesApi";
+import Loader from "./common/loader.jsx";
 
 export default class CustomPlacesSearch extends CustomGooglePlacesApi {
   handleSelect = async (address) => {
@@ -31,12 +32,21 @@ export default class CustomPlacesSearch extends CustomGooglePlacesApi {
 
   render() {
     return (
-      <div className="mt-3" style={{ maxWidth: "250px" }}>
+      <div
+        className="mt-3"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxWidth: "250px",
+        }}
+      >
         <input
           className="form-control"
           {...this.inputProps({ placeholder: "enter city name" })}
           style={{ width: "100%" }}
         />
+        {this.state.loading && <Loader />}
         <div
           className="mt-2"
           style={{

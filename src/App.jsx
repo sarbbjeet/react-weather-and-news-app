@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router";
 import NavBar from "./components/common/NavBar";
@@ -11,24 +10,9 @@ import store from "./store/configureStore";
 import { Provider } from "react-redux";
 import WeatherDashboard from "./components/weatherDashboard";
 import ProtectedRoute from "./components/common/protectedRoute";
-import { addCardHeader, fetchNews } from "./store/newsStore";
+import DetailedNews from "./components/detailedNews";
 
 function App() {
-  useEffect(() => {
-    //card header items added to store==> news
-    store.dispatch(addCardHeader({ id: 1, name: "General", active: true }));
-    store.dispatch(addCardHeader({ id: 2, name: "Business", active: false }));
-    store.dispatch(addCardHeader({ id: 3, name: "Sports", active: false }));
-    store.dispatch(
-      addCardHeader({ id: 4, name: "Entertainment", active: false })
-    );
-    store.dispatch(addCardHeader({ id: 5, name: "Health", active: false }));
-    store.dispatch(addCardHeader({ id: 6, name: "Science", active: false }));
-    store.dispatch(addCardHeader({ id: 7, name: "Technology", active: true }));
-
-    //default fetch news api category
-    store.dispatch(fetchNews({ id: 1, name: "General", active: true }));
-  }, []);
   return (
     // pass store to every component
     <Provider store={store}>
@@ -48,12 +32,18 @@ function App() {
           <ToastContainer />
           <Switch>
             <Route exact path="/weather" component={CustomPlacesSearch}></Route>
-            <Route path="/news" component={News}></Route>
+            <Route exact path="/news" component={News}></Route>
             <ProtectedRoute
               path="/weather/dashboard"
               component={WeatherDashboard}
               redirect="/weather"
             />
+            <ProtectedRoute
+              path="/news/detailed-news"
+              component={DetailedNews}
+              redirect="/news"
+            />
+
             {/* <Route
               path="/weather/dashboard"
               render={(props) =>
